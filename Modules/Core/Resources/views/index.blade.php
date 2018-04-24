@@ -1,9 +1,14 @@
 @extends('core::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <div class="title m-b-md error text-capitalize text-primary">
+        RPG Manager
+    </div>
+    <div class="errorr">
+        asdfasfdsa dsa fdsa
+    </div>
+    <button class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">
+        Hover me
+    </button>
 
-    <p>
-        This view is loaded from module: {!! config('core.name') !!}
-    </p>
 @stop

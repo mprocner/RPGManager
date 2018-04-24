@@ -16,6 +16,12 @@
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.5.7"
+        "tailwindcss": "^0.4.1",
+        "vue": "^2.5.13"
+    },
+    "dependencies": {
+        "node-sass": "^4.7.2",
+        "python": "0.0.4",
+        "vue-resource": "^1.4.0"
     }
 }
