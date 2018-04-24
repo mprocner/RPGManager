@@ -2,75 +2,53 @@
 
 namespace Modules\Roller\Http\Controllers;
 
+use Core\Roller\Dices\D100Dice;
+use Core\Roller\Dices\D10Dice;
+use Core\Roller\Dices\D4Dice;
+use Core\Roller\Dices\D6Dice;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class RollerController extends Controller
 {
+
+    public function rollD4() {
+        $dice = new D4Dice();
+        return $dice->roll();
+    }
+
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Roll D6 dice
+     *
+     * @return INT
      */
-    public function index()
-    {
-        return view('roller::index');
+    public function rollD6() {
+
+        $dice = new D6Dice();
+        return $dice->roll();
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Roll D10 dice
+     *
+     * @return INT
      */
-    public function create()
-    {
-        return view('roller::create');
+    public function rollD10() {
+
+        $dice = new D10Dice();
+        return $dice->roll();
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Roll D10 dice
+     *
+     * @return INT
      */
-    public function store(Request $request)
-    {
-    }
+    public function rollD100() {
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('roller::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('roller::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
-
-    public function roll() {
-        return 'asdf';
+        $dice = new D100Dice();
+        return $dice->roll();
     }
 }

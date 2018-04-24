@@ -44770,20 +44770,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounteddddssssssssssssssss.');
     },
 
+    data: {
+        rollHistory: "asdf"
+    },
     methods: {
-        rollDice: function rollDice() {
-            this.$http.get('/roller/roll').then(function (response) {
-                // success callback
+        rollD4: function rollD4() {
+            var _this = this;
+
+            this.$http.get('/roller/rolld4').then(function (response) {
+                _this.rollHistory = response.body + ", ";
             }, function (response) {
                 // error callback
             });
-            console.log('rolling');
+        },
+        rollD6: function rollD6() {
+            var _this2 = this;
+
+            this.$http.get('/roller/rolld6').then(function (response) {
+                // success callback
+                _this2.rollHistory += response.body + ", ";
+            }, function (response) {
+                // error callback
+            });
+        },
+        rollD10: function rollD10() {
+            var _this3 = this;
+
+            this.$http.get('/roller/rolld10').then(function (response) {
+                // success callback
+                _this3.rollHistory += response.body + ", ";
+            }, function (response) {
+                // error callback
+            });
+        },
+        rollD100: function rollD100() {
+            var _this4 = this;
+
+            this.$http.get('/roller/rolld100').then(function (response) {
+                // success callback
+                _this4.rollHistory += response.body + ", ";
+                alert(_this4.rollHistory);
+            }, function (response) {
+                // error callback
+            });
         }
     }
 });
@@ -44804,7 +44843,17 @@ var render = function() {
       {
         staticClass:
           "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
-        on: { click: _vm.rollDice }
+        on: { click: _vm.rollD4 }
+      },
+      [_vm._v("D4")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+        on: { click: _vm.rollD6 }
       },
       [_vm._v("D6")]
     ),
@@ -44813,7 +44862,8 @@ var render = function() {
       "button",
       {
         staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+        on: { click: _vm.rollD10 }
       },
       [_vm._v("D10")]
     ),
@@ -44822,19 +44872,39 @@ var render = function() {
       "button",
       {
         staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
-      },
-      [_vm._v("D20")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded"
+          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+        on: { click: _vm.rollD100 }
       },
       [_vm._v("D100")]
-    )
+    ),
+    _vm._v(" "),
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.rollHistory,
+          expression: "rollHistory"
+        }
+      ],
+      attrs: {
+        name: "roll-history",
+        id: "roll-history",
+        cols: "30",
+        rows: "10"
+      },
+      domProps: { value: _vm.rollHistory },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.rollHistory = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("span", [_vm._v(_vm._s(_vm.rollHistory))])
   ])
 }
 var staticRenderFns = []
