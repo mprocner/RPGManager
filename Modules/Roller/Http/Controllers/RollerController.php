@@ -6,16 +6,54 @@ use Core\Roller\Dices\D100Dice;
 use Core\Roller\Dices\D10Dice;
 use Core\Roller\Dices\D4Dice;
 use Core\Roller\Dices\D6Dice;
+use Core\Roller\UseCase\RollDiceUseCase;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Input;
+use Pusher\Pusher;
 
 class RollerController extends Controller
 {
 
+    /**
+     * @var Pusher
+     */
+    private $pusher;
+
+    /**
+     * RollerController constructor.
+     */
+    public function __construct()
+    {
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => true
+        );
+        $this->pusher = new Pusher(
+            '85257f7345f940c15c61',
+            'cc9ee99825bfaefe92fd',
+            '516064',
+            $options
+        );
+
+
+    }
+
+    /**
+     * @return INT|mixed
+     */
     public function rollD4() {
-        $dice = new D4Dice();
-        return $dice->roll();
+
+        $rollDice = new RollDiceUseCase(new D4Dice());
+        $result =$rollDice->execute();
+
+        $data['result'] = $result;
+        $data['message'] = 'Rolling D4';
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+
+        return $result;
     }
 
 
@@ -26,8 +64,15 @@ class RollerController extends Controller
      */
     public function rollD6() {
 
-        $dice = new D6Dice();
-        return $dice->roll();
+        $rollDice = new RollDiceUseCase(new D6Dice());
+        $result =$rollDice->execute();
+
+        $data['result'] = $result;
+        $data['message'] = 'Rolling D6';
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+
+        return $result;
     }
 
     /**
@@ -37,8 +82,15 @@ class RollerController extends Controller
      */
     public function rollD10() {
 
-        $dice = new D10Dice();
-        return $dice->roll();
+        $rollDice = new RollDiceUseCase(new D10Dice());
+        $result =$rollDice->execute();
+
+        $data['result'] = $result;
+        $data['message'] = 'Rolling D10';
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+
+        return $result;
     }
 
     /**
@@ -48,7 +100,26 @@ class RollerController extends Controller
      */
     public function rollD100() {
 
-        $dice = new D100Dice();
-        return $dice->roll();
+        $rollDice = new RollDiceUseCase(new D100Dice());
+        $result =$rollDice->execute();
+
+        $data['result'] = $result;
+        $data['message'] = 'Rolling D100';
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+
+        return $result;
+    }
+
+
+    /**
+     *
+     */
+    public function sendMessage() {
+        $message = Input::get('message');
+        $data['message'] = $message;
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+        return response('', 200);
     }
 }

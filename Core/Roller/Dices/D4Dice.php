@@ -18,8 +18,7 @@ class D4Dice extends Dice
      */
     public function __construct()
     {
-        $this->min = 1;
-        $this->max = 4;
+        $this->face = 4;
     }
 
 }

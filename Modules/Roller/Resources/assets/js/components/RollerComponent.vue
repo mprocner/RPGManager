@@ -1,16 +1,30 @@
 <template>
-    <div>
+    <div id="roller">
 
-        <h1>Roller</h1>
+        <h1>Chat</h1>
+        <div class="chat-history">
+            <div class="chat-row" v-for="row in chatHistory">
+                <div class="chat-row-message">{{row.message}}</div>
+                    <div class="chat-row-rollresult" v-if="row.result">
+                        <img src="/images/dice_icon.png" alt="dice">
+                        {{row.result}}
+                    </div>
+            </div>
+        </div>
+
+        <div class="roller-buttons">
+
         <button v-on:click="rollD4" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" >D4</button>
 
         <button v-on:click="rollD6" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D6</button>
         <button v-on:click="rollD10" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D10</button>
         <button v-on:click="rollD100" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D100</button>
+        </div>
+        <div class="chat-input">
 
-        <textarea v-model="rollHistory" name="roll-history" id="roll-history" cols="30" rows="10"></textarea>
+            <input v-model="chatInput" v-on:keyup.enter="sendMessage" name="chat-input" placeholder="Enter message here ..."/>
+        </div>
 
-        <span>{{rollHistory}}</span>
     </div>
 
 
@@ -20,16 +34,60 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounteddddssssssssssssssss.')
+        mounted: function() {
+            console.log('Roller Component mounteddddssssssssssssssss.')
+            var component = this;
+
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('85257f7345f940c15c61', {
+                cluster: 'eu',
+                encrypted: true
+            });
+
+            var channel = pusher.subscribe('rpgmanager-roller');
+            channel.bind('dicerolled', function(data) {
+                console.log(data);
+                console.log(component);
+                component.chatHistory.push({
+                    message: data['message'],
+                    result: data['result']
+                });
+
+            });
+
         },
-        data: {
-            rollHistory: "asdf"
+        ready: function() {
+
+
+        },
+        data: function() {
+            return {
+                chatHistory: [],
+                chatInput: ''
+            }
+        },
+        props: {
+
         },
         methods: {
+            sendMessage: function() {
+                console.log('sending Message');
+                var component = this;
+                var message = component.chatInput;
+                component.chatInput = '';
+                this.$http.post('/roller/sendMessage', {
+                    message: message,
+                    _token: window.LaravelCsrf
+                }).then(response => {
+                }, response => {
+
+                });
+            },
             rollD4: function() {
                 this.$http.get('/roller/rolld4').then(response => {
-                    this.rollHistory=response.body+", ";
                 }, response => {
                     // error callback
                 });
@@ -38,7 +96,6 @@
             rollD6: function() {
                 this.$http.get('/roller/rolld6').then(response => {
                     // success callback
-                    this.rollHistory+=response.body+", ";
                 }, response => {
                     // error callback
                 });
@@ -47,7 +104,6 @@
             rollD10: function() {
                 this.$http.get('/roller/rolld10').then(response => {
                     // success callback
-                    this.rollHistory+=response.body+", ";
                 }, response => {
                     // error callback
                 });
@@ -56,8 +112,6 @@
             rollD100: function() {
                 this.$http.get('/roller/rolld100').then(response => {
                     // success callback
-                    this.rollHistory+=response.body+", ";
-                    alert(this.rollHistory);
                 }, response => {
                     // error callback
                 });

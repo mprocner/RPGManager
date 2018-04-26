@@ -11,7 +11,10 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/app.css">
     <!-- Styles -->
-
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+        window.LaravelCsrf = '<?php echo csrf_token(); ?>';
+    </script>
 </head>
 <body>
 <div id="app" class="flex-center position-ref full-height">
@@ -28,7 +31,6 @@
 
     <div class="content">
         @yield('content')
-        @include('roller::roller')
     </div>
     <example-component></example-component>
     <roller-component></roller-component>

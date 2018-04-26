@@ -3,7 +3,7 @@ namespace Tests\Unit\Core;
 /**
  * Class TestCase
  */
-class TestCase extends \Tests\TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
 
     /**

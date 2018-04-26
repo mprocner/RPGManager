@@ -17,7 +17,6 @@ class D100Dice extends Dice
      */
     function __construct()
     {
-        $this->min = 1;
-        $this->max = 100;
+        $this->face = 100;
     }
 }

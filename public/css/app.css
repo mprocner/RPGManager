@@ -4647,6 +4647,67 @@ button,
   font-weight: bold;
 }
 
+#roller {
+  position: fixed;
+  border-left: 1px solid black;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#roller h1 {
+  height: 35px;
+}
+
+#roller .chat-history {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: scroll;
+}
+
+#roller .chat-history .chat-row {
+  border-bottom: 1px solid black;
+  padding: 5px 5px 10px 5px;
+}
+
+#roller .chat-history .chat-row:nth-child(even) {
+  background-color: #eee;
+}
+
+#roller .chat-history .chat-row:nth-child(odd) {
+  background-color: #ddd;
+}
+
+#roller .chat-history .chat-row .chat-row-rollresult {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#roller .roller-buttons {
+  height: 35px;
+}
+
+#roller .chat-input {
+  height: 40px;
+}
+
+#roller .chat-input input {
+  height: 40px;
+  width: 100%;
+  padding: 5px;
+  color: #333;
+  font-size: 14px;
+}
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.

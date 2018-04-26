@@ -44774,52 +44774,85 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Component mounteddddssssssssssssssss.');
-    },
+        console.log('Roller Component mounteddddssssssssssssssss.');
+        var component = this;
 
-    data: {
-        rollHistory: "asdf"
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('85257f7345f940c15c61', {
+            cluster: 'eu',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe('rpgmanager-roller');
+        channel.bind('dicerolled', function (data) {
+            console.log(data);
+            console.log(component);
+            component.chatHistory.push({
+                message: data['message'],
+                result: data['result']
+            });
+        });
     },
+    ready: function ready() {},
+    data: function data() {
+        return {
+            chatHistory: [],
+            chatInput: ''
+        };
+    },
+    props: {},
     methods: {
+        sendMessage: function sendMessage() {
+            console.log('sending Message');
+            var component = this;
+            var message = component.chatInput;
+            component.chatInput = '';
+            this.$http.post('/roller/sendMessage', {
+                message: message,
+                _token: window.LaravelCsrf
+            }).then(function (response) {}, function (response) {});
+        },
         rollD4: function rollD4() {
-            var _this = this;
-
-            this.$http.get('/roller/rolld4').then(function (response) {
-                _this.rollHistory = response.body + ", ";
-            }, function (response) {
+            this.$http.get('/roller/rolld4').then(function (response) {}, function (response) {
                 // error callback
             });
         },
         rollD6: function rollD6() {
-            var _this2 = this;
-
             this.$http.get('/roller/rolld6').then(function (response) {
                 // success callback
-                _this2.rollHistory += response.body + ", ";
             }, function (response) {
                 // error callback
             });
         },
         rollD10: function rollD10() {
-            var _this3 = this;
-
             this.$http.get('/roller/rolld10').then(function (response) {
                 // success callback
-                _this3.rollHistory += response.body + ", ";
             }, function (response) {
                 // error callback
             });
         },
         rollD100: function rollD100() {
-            var _this4 = this;
-
             this.$http.get('/roller/rolld100').then(function (response) {
                 // success callback
-                _this4.rollHistory += response.body + ", ";
-                alert(_this4.rollHistory);
             }, function (response) {
                 // error callback
             });
@@ -44835,76 +44868,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("Roller")]),
+  return _c("div", { attrs: { id: "roller" } }, [
+    _c("h1", [_vm._v("Chat")]),
     _vm._v(" "),
     _c(
-      "button",
-      {
-        staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
-        on: { click: _vm.rollD4 }
-      },
-      [_vm._v("D4")]
+      "div",
+      { staticClass: "chat-history" },
+      _vm._l(_vm.chatHistory, function(row) {
+        return _c("div", { staticClass: "chat-row" }, [
+          _c("div", { staticClass: "chat-row-message" }, [
+            _vm._v(_vm._s(row.message))
+          ]),
+          _vm._v(" "),
+          row.result
+            ? _c("div", { staticClass: "chat-row-rollresult" }, [
+                _c("img", {
+                  attrs: { src: "/images/dice_icon.png", alt: "dice" }
+                }),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(row.result) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ])
+      })
     ),
     _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
-        on: { click: _vm.rollD6 }
-      },
-      [_vm._v("D6")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
-        on: { click: _vm.rollD10 }
-      },
-      [_vm._v("D10")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
-        on: { click: _vm.rollD100 }
-      },
-      [_vm._v("D100")]
-    ),
-    _vm._v(" "),
-    _c("textarea", {
-      directives: [
+    _c("div", { staticClass: "roller-buttons" }, [
+      _c(
+        "button",
         {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.rollHistory,
-          expression: "rollHistory"
-        }
-      ],
-      attrs: {
-        name: "roll-history",
-        id: "roll-history",
-        cols: "30",
-        rows: "10"
-      },
-      domProps: { value: _vm.rollHistory },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.rollHistory = $event.target.value
-        }
-      }
-    }),
+          staticClass:
+            "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+          on: { click: _vm.rollD4 }
+        },
+        [_vm._v("D4")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+          on: { click: _vm.rollD6 }
+        },
+        [_vm._v("D6")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+          on: { click: _vm.rollD10 }
+        },
+        [_vm._v("D10")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded",
+          on: { click: _vm.rollD100 }
+        },
+        [_vm._v("D100")]
+      )
+    ]),
     _vm._v(" "),
-    _c("span", [_vm._v(_vm._s(_vm.rollHistory))])
+    _c("div", { staticClass: "chat-input" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.chatInput,
+            expression: "chatInput"
+          }
+        ],
+        attrs: { name: "chat-input", placeholder: "Enter message here ..." },
+        domProps: { value: _vm.chatInput },
+        on: {
+          keyup: function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key)
+            ) {
+              return null
+            }
+            _vm.sendMessage($event)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.chatInput = $event.target.value
+          }
+        }
+      })
+    ])
   ])
 }
 var staticRenderFns = []
