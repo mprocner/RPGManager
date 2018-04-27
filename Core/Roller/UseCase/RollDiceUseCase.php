@@ -1,7 +1,7 @@
 <?php
 namespace Core\Roller\UseCase;
 
-use Core\Common\UseCaseInterface;
+use Core\Common\Contracts\UseCaseInterface;
 use Core\Roller\Dice;
 use Core\Roller\Repositories\RollRepositoryInterface;
 

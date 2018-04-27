@@ -2,5 +2,11 @@
 
 Route::group(['middleware' => 'web', 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()
 {
-    Route::get('/', 'CoreController@index');
+    Route::get('/', 'HomeController@index');
 });
+Route::group(['middleware' => 'web', 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()
+{
+
+    Auth::routes();
+});
+
