@@ -34,15 +34,16 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    @auth
                         <!-- Left Side Of Navbar -->
                         <nav class="flex items-center justify-between flex-wrap bg-grey-lighter p-6">
                             <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                                @auth
                                 <div class="text-md lg:flex-grow">
                                     <a href="{{action('\Modules\RoomManager\Http\Controllers\RoomManagerController@create')}}" class="block mt-4 lg:inline-block lg:mt-0 text-grey-darker hover:text-black mr-4">
                                         Create Room
                                     </a>
                                 </div>
+                                @endauth
                                 <div>
                                     <ul class="nav navbar-nav navbar-right">
                                         <!-- Authentication Links -->
@@ -74,7 +75,6 @@
                                 </div>
                             </div>
                         </nav>
-                    @endauth
                     <!-- Right Side Of Navbar -->
 
                 </div>
