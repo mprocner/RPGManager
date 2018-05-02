@@ -1,7 +1,9 @@
 <?php
 
-Route::group(['middleware' => 'web', 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()
+Route::group(['middleware' => ['web', 'auth'], 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()
 {
+    Route::get('/app', 'AppController@index');
+
     Route::get('/', 'HomeController@index');
 });
 Route::group(['middleware' => 'web', 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()

@@ -6,8 +6,6 @@ Route::group(
         'prefix' => 'roller',
         'namespace' => 'Modules\Roller\Http\Controllers'
     ], function () {
-            Route::get('/', 'RollerController@index');
-
             /**
              * Api routes
              */

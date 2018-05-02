@@ -1,11 +1,11 @@
 <template>
     <div id="roller">
 
-        <h1>Chat</h1>
+        <h1 class="text-grey-darker">Chat <i class="glyphicon glyphicon-shopping-cart"></i></h1>
         <div class="chat-history">
             <div class="chat-row" v-for="row in chatHistory">
-                <div class="chat-row-message">{{row.message}}</div>
-                    <div class="chat-row-rollresult" v-if="row.result">
+                <div class="chat-row-message text-grey-darker">{{row.message}}</div>
+                    <div class="chat-row-rollresult text-grey-darker" v-if="row.result">
                         <img src="/images/dice_icon.png" alt="dice">
                         {{row.result}}
                     </div>
