@@ -8,5 +8,6 @@ Route::group(
     ],
     function () {
         Route::get('/create', 'RoomManagerController@create');
+        Route::post('/store', 'RoomManagerController@store');
     }
 );
