@@ -10,13 +10,18 @@ class Game
 {
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * Game constructor.
      * @param string $name
      */
     public function __construct(string $name)
     {
 
-
+        $this->name = $name;
 
     }
 

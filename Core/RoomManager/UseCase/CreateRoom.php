@@ -29,14 +29,15 @@ class CreateRoom implements UseCaseInterface
     private $name;
     /**
      * CreateRoom constructor.
-     * @param Game $game
+     * @param string $name
+     * @param string $game
      * @param Owner $owner
      */
-    public function __construct(string $name, Game $game, Owner $owner)
+    public function __construct(string $name, string $game, Owner $owner)
     {
+        $this->name = $name;
         $this->game = $game;
         $this->owner = $owner;
-        $this->name = $name;
     }
 
     /**
@@ -45,7 +46,9 @@ class CreateRoom implements UseCaseInterface
     public function execute()
     {
 
-        $roomFactory = new RoomFactory($this->name, $this->game, $this->owner);
+        $game = new Game($this->game);
+
+        $roomFactory = new RoomFactory($this->name, $game, $this->owner);
 
         $room = $roomFactory->create();
     }

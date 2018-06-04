@@ -2,9 +2,18 @@
 
 namespace Modules\RoomManager\Requests;
 
-class StoreRoomRequest extends \Illuminate\Http\Request
+use Illuminate\Foundation\Http\FormRequest;
+
+/**
+ * Class StoreRoomRequest
+ * @package Modules\RoomManager\Requests
+ */
+class StoreRoomRequest extends FormRequest
 {
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -12,5 +21,12 @@ class StoreRoomRequest extends \Illuminate\Http\Request
             'game' => 'required'
         ];
     }
+
+    public function authorize()
+    {
+        return true;
+    }
+
+
 
 }

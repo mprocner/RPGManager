@@ -4,6 +4,7 @@ namespace Core\RoomManager\Factories;
 
 use Core\Common\Contracts\FactoryInterface;
 use Core\Common\Entities\User;
+use Core\GameManager\Entities\Game;
 use Core\RoomManager\Entities\Room;
 
 /**
@@ -30,6 +31,9 @@ class RoomFactory implements FactoryInterface
 
     /**
      * RoomFactory constructor.
+     * @param string $name
+     * @param Game $game
+     * @param User $owner
      */
     public function __construct(string $name, Game $game, User $owner)
     {

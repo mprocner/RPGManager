@@ -43,7 +43,8 @@ class RollerController extends Controller
     /**
      * @return INT|mixed
      */
-    public function rollD4() {
+    public function rollD4()
+    {
 
         $rollDice = new RollDiceUseCase(new D4Dice());
         $result =$rollDice->execute();
@@ -62,7 +63,8 @@ class RollerController extends Controller
      *
      * @return INT
      */
-    public function rollD6() {
+    public function rollD6()
+    {
 
         $rollDice = new RollDiceUseCase(new D6Dice());
         $result =$rollDice->execute();
@@ -80,7 +82,8 @@ class RollerController extends Controller
      *
      * @return INT
      */
-    public function rollD10() {
+    public function rollD10()
+    {
 
         $rollDice = new RollDiceUseCase(new D10Dice());
         $result =$rollDice->execute();
@@ -98,7 +101,8 @@ class RollerController extends Controller
      *
      * @return INT
      */
-    public function rollD100() {
+    public function rollD100()
+    {
 
         $rollDice = new RollDiceUseCase(new D100Dice());
         $result =$rollDice->execute();
@@ -115,7 +119,8 @@ class RollerController extends Controller
     /**
      *
      */
-    public function sendMessage() {
+    public function sendMessage()
+    {
         $message = Input::get('message');
         $data['message'] = $message;
         $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
