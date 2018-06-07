@@ -2,8 +2,11 @@
 
 namespace Modules\RoomManager\Providers;
 
+use Core\RoomManager\Repositories\RoomRepositoryInterface;
+use Core\RoomManager\UseCase\CreateRoom;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\RoomManager\Repositories\RoomRepository;
 
 class RoomManagerServiceProvider extends ServiceProvider
 {
@@ -35,7 +38,11 @@ class RoomManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            RoomRepositoryInterface::class,
+            RoomRepository::class
+        );
+
     }
 
     /**

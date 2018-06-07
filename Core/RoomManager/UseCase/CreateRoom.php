@@ -3,8 +3,11 @@
 namespace Core\RoomManager\UseCase;
 
 use Core\Common\Contracts\UseCaseInterface;
+use Core\Common\Entities\User;
 use Core\GameManager\Entities\Game;
+use Core\RoomManager\Data\StoreRoomData;
 use Core\RoomManager\Factories\RoomFactory;
+use Core\RoomManager\Repositories\RoomRepositoryInterface;
 
 /**
  * Class CreateRoom
@@ -27,17 +30,27 @@ class CreateRoom implements UseCaseInterface
      * @var string
      */
     private $name;
+
+    /**
+     * @var RoomRepositoryInterface
+     */
+    private $roomRepository;
+
+    /**
+     * @var StoreRoomData
+     */
+    private $data;
+
     /**
      * CreateRoom constructor.
-     * @param string $name
-     * @param string $game
-     * @param Owner $owner
+     * @param StoreRoomData $data
+     * @param RoomRepositoryInterface $roomRepository
      */
-    public function __construct(string $name, string $game, Owner $owner)
+    public function __construct(StoreRoomData $data, RoomRepositoryInterface $roomRepository)
     {
-        $this->name = $name;
-        $this->game = $game;
-        $this->owner = $owner;
+        $this->data = $data;
+        $this->roomRepository = $roomRepository;
+
     }
 
     /**
@@ -46,10 +59,14 @@ class CreateRoom implements UseCaseInterface
     public function execute()
     {
 
-        $game = new Game($this->game);
+        $game = new Game($this->data->getGame());
 
-        $roomFactory = new RoomFactory($this->name, $game, $this->owner);
+        $roomFactory = new RoomFactory($this->data->getRoomName(), $game, $this->data->getOwner());
 
         $room = $roomFactory->create();
+
+        $this->roomRepository->createRoom($room);
+
+
     }
 }

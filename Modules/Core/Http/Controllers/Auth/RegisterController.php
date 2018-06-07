@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Http\Controllers\Auth;
 
-use Modules\Core\Entities\User;
+use Modules\Core\Entities\UserModel;
 use Modules\Core\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -74,7 +74,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return UserModel::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),

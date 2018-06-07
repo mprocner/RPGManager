@@ -50,6 +50,9 @@ class RoomFactory implements FactoryInterface
     public function create()
     {
 
-        $room = new Room();
+        $room = new Room($this->name, $this->game, $this->owner);
+
+        return $room;
+
     }
 }

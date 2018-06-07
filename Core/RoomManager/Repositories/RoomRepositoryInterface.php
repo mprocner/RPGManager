@@ -2,6 +2,8 @@
 
 namespace Core\RoomManager\Repositories;
 
+use Core\RoomManager\Entities\Room;
+
 /**
  * Interface RoomRepositoryInterface
  */
@@ -9,8 +11,8 @@ interface RoomRepositoryInterface
 {
 
     /**
-     * @param $data
+     * @param $room
      * @return mixed
      */
-    public function createRoom($data);
+    public function createRoom(Room $room);
 }

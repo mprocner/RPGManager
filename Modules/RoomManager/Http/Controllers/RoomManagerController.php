@@ -2,6 +2,9 @@
 
 namespace Modules\RoomManager\Http\Controllers;
 
+use Core\Common\Entities\User;
+use Core\RoomManager\Data\StoreRoomData;
+use Core\RoomManager\Repositories\RoomRepositoryInterface;
 use Core\RoomManager\UseCase\CreateRoom;
 use Illuminate\Contracts\Auth\Guard;
 use Modules\RoomManager\Requests\StoreRoomRequest;
@@ -19,12 +22,19 @@ class RoomManagerController extends Controller
     private $guard;
 
     /**
+     * @var RoomRepositoryInterface
+     */
+    private $roomRepository;
+
+    /**
      * RoomManagerController constructor.
      * @param Guard $guard
+     * @param RoomRepositoryInterface $roomRepository
      */
-    public function __construct(Guard $guard)
+    public function __construct(Guard $guard, RoomRepositoryInterface $roomRepository)
     {
         $this->guard = $guard;
+        $this->roomRepository = $roomRepository;
     }
 
     /**
@@ -43,11 +53,13 @@ class RoomManagerController extends Controller
     public function store(StoreRoomRequest $request)
     {
 
-        $data = $request->all();
-        $owner = $this->guard->user();
-        dd($data);
+        $formData = $request->all();
+        $authenticatedUser= $this->guard->user();
+        $owner = new User($authenticatedUser->email, $authenticatedUser->name);
 
-        $createRoom = new CreateRoom($data['roomName'], $data['game'], $owner);
+        $storeRoomData = new StoreRoomData($formData['roomName'], $formData['game'], $owner);
+
+        $createRoom = new CreateRoom($storeRoomData, $this->roomRepository);
         $createRoom->execute();
 
         return 'safd';
