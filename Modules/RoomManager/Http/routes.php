@@ -9,5 +9,6 @@ Route::group(
     function () {
         Route::get('/create', 'RoomManagerController@create');
         Route::post('/store', 'RoomManagerController@store');
+        Route::get('/list', 'RoomManagerController@list')->name('room.list');
     }
 );

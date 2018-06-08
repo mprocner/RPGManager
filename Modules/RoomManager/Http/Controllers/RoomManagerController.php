@@ -62,6 +62,18 @@ class RoomManagerController extends Controller
         $createRoom = new CreateRoom($storeRoomData, $this->roomRepository);
         $createRoom->execute();
 
-        return 'safd';
+        return response()->redirectToRoute('room.list');
+    }
+
+
+    /**
+     *
+     */
+    public function list()
+    {
+        $user = $this->guard->user()->getEntity();
+        $rooms = $this->roomRepository->findUserRooms($user);
+        return view('roommanager::list', ['rooms' => $rooms]);
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Core\RoomManager\Repositories;
 
+use Core\Common\Entities\User;
 use Core\RoomManager\Entities\Room;
 
 /**
@@ -15,4 +16,10 @@ interface RoomRepositoryInterface
      * @return mixed
      */
     public function createRoom(Room $room);
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function findUserRooms(User $user);
 }

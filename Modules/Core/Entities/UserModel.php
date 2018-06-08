@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Entities;
 
+use Core\Common\Entities\User;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Modules\RoomManager\Entities\RoomModel;
@@ -34,9 +35,19 @@ class UserModel extends Authenticatable
     ];
 
     /**
+     * @return User
+     */
+    public function getEntity() {
+        return new User($this->email, $this->name, $this->id);
+    }
+
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function rooms() {
-        return $this->hasMany(RoomModel::class,'owner_id');
+        return $this->belongsToMany(RoomModel::class,'users_rooms', 'room_id', 'user_id')
+            ->withPivot('role')
+            ->withTimestamps();
     }
 }
