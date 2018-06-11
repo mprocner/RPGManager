@@ -38,11 +38,11 @@ class RoomManagerController extends Controller
     }
 
     /**
+     * Create new room form
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $a = 1;
         return view('roommanager::create');
     }
 
@@ -67,7 +67,7 @@ class RoomManagerController extends Controller
 
 
     /**
-     *
+     * Rooms list
      */
     public function list()
     {

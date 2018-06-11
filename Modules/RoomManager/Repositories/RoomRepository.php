@@ -12,6 +12,7 @@ use Modules\RoomManager\Entities\RoomModel;
 
 class RoomRepository implements RoomRepositoryInterface
 {
+
     public function createRoom(Room $room) : RoomModel
     {
         $owner = UserModel::where('email', '=', $room->getOwner()->getEmail())->first();
@@ -20,7 +21,7 @@ class RoomRepository implements RoomRepositoryInterface
         $roomModel->game_id = 1;
         $roomModel->name = $room->getName();
         $roomModel->save();
-        $roomModel->user()->attach($owner, ['role' => RoomRoleEnum::OWNER]);
+        $roomModel->users()->attach($owner, ['role' => RoomRoleEnum::OWNER]);
         return $roomModel;
     }
 
@@ -32,5 +33,11 @@ class RoomRepository implements RoomRepositoryInterface
         return $rooms;
     }
 
+    public function getRoomsCreatedByUser(User $user)
+    {
+        $rooms = UserModel::find($user->getId())->rooms()->wherePivot('role', RoomRoleEnum::OWNER)->get();
+
+        return $rooms;
+    }
 
 }

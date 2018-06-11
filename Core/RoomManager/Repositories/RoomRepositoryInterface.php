@@ -22,4 +22,10 @@ interface RoomRepositoryInterface
      * @return mixed
      */
     public function findUserRooms(User $user);
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getRoomsCreatedByUser(User $user);
 }
