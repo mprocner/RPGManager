@@ -13,14 +13,15 @@ Route::group(
     }
 );
 
+
 Route::group(
     [
         'middleware' => ['web', 'auth'],
-        'prefix', 'invitations',
+        'prefix' => 'invitations',
         'namespace' => 'Modules\RoomManager\Http\Controllers'
     ],
     function () {
-        Route::get('/roomlist', 'RoomInvitationsController@roomsList') ;
+        Route::get('/roomlist', 'RoomInvitationsController@roomsList');
         Route::post('/invite', 'RoomInvitationsController@invite');
         Route::get('/acceptInvitation', 'RoomInvitationsController@acceptInvitation');
     }

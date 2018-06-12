@@ -43,6 +43,11 @@
                         Create Room
                     </a>
                 </li>
+                <li>
+                    <a href="{{action('\Modules\RoomManager\Http\Controllers\RoomInvitationsController@roomsList')}}"  class="text-lg block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+                        Invitations
+                    </a>
+                </li>
                 @endguest
 
             </ul>

@@ -1,7 +1,6 @@
 @extends('core::layouts.panel')
 
 @section('content')
-xsxs
     <div class="row">
         @foreach($rooms as $room)
             <div class="col-md-6">

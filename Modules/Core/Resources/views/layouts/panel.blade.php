@@ -23,24 +23,24 @@
 <body>
     <div id="app">
 
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">RPG Manager</a>
-                </div>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{{action('\Modules\Core\Http\Controllers\HomeController@index')}}">RPG Manager</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <ul class="nav navbar-nav navbar-left">
+                <ul class="nav navbar-nav mr-auto" id="main-navbar">
                     @auth
 
-                    <li>
-                        <a href="{{action('\Modules\RoomManager\Http\Controllers\RoomManagerController@create')}}" class="text-lg block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomManagerController@create')}}" >
                             Create Room
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomInvitationsController@roomsList')}}" >
+                            Invitations
                         </a>
                     </li>
                     @endguest
@@ -49,12 +49,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     @guest
                     <li>
-                        <a href="{{ route('login') }}" class="text-lg block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+                        <a href="{{ route('login') }}">
                             Login
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('register') }}" class="text-lg block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+                        <a href="{{ route('register') }}" >
                             Register
                         </a>
                     </li>
@@ -79,8 +79,8 @@
                     </li>
                     @endguest
                 </ul>
-            </div>
         </nav>
+            </div>
 
 
 
