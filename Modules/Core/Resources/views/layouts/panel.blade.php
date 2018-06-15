@@ -19,13 +19,26 @@
     <script>
         window.LaravelCsrf = '<?php echo csrf_token(); ?>';
     </script>
+    <script>
+        window.trans = <?php
+        // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+        $lang_files = File::files(resource_path() . '/lang/en' );
+        $file = File::get(resource_path(). '/lang/'.App::getLocale().'.json');
+        $trans = [];
+        foreach ($lang_files as $f) {
+            $filename = pathinfo($f)['filename'];
+            $trans[$filename] = trans($filename);
+        }
+        echo $file;
+        ?>;
+    </script>
 </head>
 <body>
     <div id="app">
 
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="{{action('\Modules\Core\Http\Controllers\HomeController@index')}}">RPG Manager</a>
+                <a class="navbar-brand" href="{{route('index')}}">{{__('RPG Manager')}}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -34,13 +47,19 @@
                     @auth
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomManagerController@create')}}" >
-                            Create Room
+                        <a class="nav-link" href="{{route('room.create')}}" >
+                            {{__('Create Room')}}
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('room.list')}}">
+                            {{__('Rooms')}}
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomInvitationsController@roomsList')}}" >
-                            Invitations
+                            {{__('Invitations')}}
                         </a>
                     </li>
                     @endguest
@@ -50,12 +69,12 @@
                     @guest
                     <li>
                         <a href="{{ route('login') }}">
-                            Login
+                            {{__('Login')}}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('register') }}" >
-                            Register
+                            {{__('Register')}}
                         </a>
                     </li>
                     @else
@@ -68,7 +87,7 @@
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    Logout
+                                    {{__('Logout')}}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -93,7 +112,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

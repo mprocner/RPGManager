@@ -11,11 +11,8 @@ mix.setPublicPath('public')
  | file for the application as well as bundling up all the JS files.
  |
  */
-var tailwindcss = require('tailwindcss');
 
-mix.js('Modules/Core/Resources/assets/js/app.js', 'public/js')
-    .sass('Modules/Core/Resources/assets/sass/app.scss', 'public/css')
-    .options({
-        processCssUrls: false,
-        postCss: [ tailwindcss('./tailwind.js') ],
-    });
+mix.js('Modules/Core/Resources/assets/js/bootstrap.js', 'public/js')
+.js('Modules/Core/Resources/assets/js/app.js', 'public/js')
+    .js('Modules/RoomManager/Resources/assets/js/room-app.js', 'public/js')
+    .sass('Modules/Core/Resources/assets/sass/app.scss', 'public/css');

@@ -1,5 +1,5 @@
 
-window._ = require('lodash');
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -53,3 +53,4 @@ if (token) {
 //     cluster: 'mt1',
 //     encrypted: true
 // });
+

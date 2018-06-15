@@ -4,7 +4,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => '', 'namespace' => 'M
 {
     Route::get('/app', 'AppController@index');
 
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('index');
 });
 Route::group(['middleware' => 'web', 'prefix' => '', 'namespace' => 'Modules\Core\Http\Controllers'], function()
 {

@@ -71,6 +71,7 @@ class RoomManagerController extends Controller
      */
     public function list()
     {
+        \App::setLocale('pl');
         $user = $this->guard->user()->getEntity();
         $rooms = $this->roomRepository->findUserRooms($user);
         return view('roommanager::list', ['rooms' => $rooms]);
