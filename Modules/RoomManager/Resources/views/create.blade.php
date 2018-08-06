@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col col-xs-12">
             <h1>Create room form</h1>
-            <form method="post" action="{{ action('room.store') }}">
+            <form method="post" action="{{ route('room.store') }}">
                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
                 <div class="form-group">
                     <label for="roomName">Nazwa</label>
