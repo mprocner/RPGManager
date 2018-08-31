@@ -10,7 +10,7 @@ namespace Core\Roller;
 abstract class Dice
 {
 
-    protected $face;
+    protected $sides;
     /**
      * Dice rolling
      *
@@ -18,6 +18,6 @@ abstract class Dice
      */
     public function roll() : INT
     {
-        return random_int(1, $this->face);
+        return random_int(1, $this->sides);
     }
 }

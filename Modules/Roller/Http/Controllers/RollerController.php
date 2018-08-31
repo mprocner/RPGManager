@@ -2,6 +2,7 @@
 
 namespace Modules\Roller\Http\Controllers;
 
+use Core\Roller\Dices\CustomDice;
 use Core\Roller\Dices\D100Dice;
 use Core\Roller\Dices\D10Dice;
 use Core\Roller\Dices\D4Dice;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
+use Modules\Roller\Http\Requests\CustomRollRequest;
 use Pusher\Pusher;
 
 class RollerController extends Controller
@@ -38,6 +40,25 @@ class RollerController extends Controller
         );
 
 
+    }
+
+    /**
+     * @param CustomRollRequest $request
+     * @return INT
+     * @internal param int $sides
+     */
+    public function customRoll(CustomRollRequest $request)
+    {
+        $sides = $request->input('dice');
+        $rollDice = new RollDiceUseCase(new CustomDice($sides));
+        $result =$rollDice->execute();
+
+        $data['result'] = $result;
+        $data['message'] = 'Rolling D'.$sides;
+        $this->pusher->trigger('rpgmanager-roller', 'dicerolled', $data);
+
+
+        return $result;
     }
 
     /**

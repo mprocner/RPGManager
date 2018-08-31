@@ -9,6 +9,7 @@ use Core\RoomManager\UseCase\CreateRoom;
 use Illuminate\Contracts\Auth\Guard;
 use Modules\RoomManager\Requests\StoreRoomRequest;
 use Modules\Core\Http\Controllers\Controller;
+use Modules\RoomManager\Entities\RoomModel;
 
 /**
  * Class RoomManagerController
@@ -65,7 +66,6 @@ class RoomManagerController extends Controller
         return response()->redirectToRoute('room.list');
     }
 
-
     /**
      * Rooms list
      */
@@ -75,6 +75,16 @@ class RoomManagerController extends Controller
         $user = $this->guard->user()->getEntity();
         $rooms = $this->roomRepository->findUserRooms($user);
         return view('roommanager::list', ['rooms' => $rooms]);
+
+    }
+
+    /**
+     * Enter room
+     * @param Room $room
+     */
+    public function enter(RoomModel $room)
+    {
+        return view('core::application');
 
     }
 }

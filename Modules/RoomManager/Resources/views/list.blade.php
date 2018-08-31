@@ -16,8 +16,7 @@
                             <span class="d-inline-block mb-2 ">{{__('Room owner')}}: <strong class="text-primary"> {{$room->owner[0]->name}}</strong></span>
                         </p>
                         <p>
-
-                            <button class="btn btn-primary">{{__('Join')}}</button>
+                            <a href="{{route('room.enter', ['room' => $room->id])}}" class="btn btn-primary">{{__('Join')}}</a>
                             <button class="btn btn-primary" v-on:click="showInviteModal= true">{{__('Invite')}}</button>
                         </p>
                     </div>

@@ -36,13 +36,22 @@ class RoomInvitationsController extends Controller
     }
 
     /**
-     *
+     * Invitations list
      */
-    public function roomsList()
+    public function list()
     {
         $user = $this->guard->user()->getEntity();
         $rooms = $this->roomRepository->getRoomsCreatedByUser($user);
         return view('roommanager::invitations.list', ['rooms' => $rooms]);
+    }
+
+
+    /**
+     * Add user to room
+     */
+    public function add()
+    {
+
     }
 
     /**
@@ -50,6 +59,7 @@ class RoomInvitationsController extends Controller
      */
     public function invite()
     {
+
     }
 
     /**

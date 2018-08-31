@@ -18,7 +18,7 @@ class D4Dice extends Dice
      */
     public function __construct()
     {
-        $this->face = 4;
+        $this->sides = 4;
     }
 
 }

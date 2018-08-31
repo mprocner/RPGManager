@@ -15,8 +15,8 @@ class D10Dice extends Dice
     /**
      * D6Dice constructor.
      */
-    function __construct()
+    public function __construct()
     {
-        $this->face = 10;
+        $this->sides = 10;
     }
 }

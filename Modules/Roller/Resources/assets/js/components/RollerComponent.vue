@@ -14,11 +14,10 @@
 
         <div class="roller-buttons">
 
-        <button v-on:click="rollD4" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" >D4</button>
-
-        <button v-on:click="rollD6" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D6</button>
-        <button v-on:click="rollD10" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D10</button>
-        <button v-on:click="rollD100" class="bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">D100</button>
+        <button v-on:click="rollD4" class="btn btn-info" >D4</button>
+        <button v-on:click="rollD6" class="btn btn-info">D6</button>
+        <button v-on:click="rollD10" class="btn btn-info">D10</button>
+        <button v-on:click="rollD100" class="btn btn-info">D100</button>
         </div>
         <div class="chat-input">
 
@@ -86,8 +85,16 @@
 
                 });
             },
+            customRoll: function() {
+                this.$http.post('/roller/roll', {
+
+                })
+            },
             rollD4: function() {
-                this.$http.get('/roller/rolld4').then(response => {
+                this.$http.post('/roller/roll', {
+                    dice: 4,
+                    _token: window.LaravelCsrf
+                }).then(response => {
                 }, response => {
                     // error callback
                 });

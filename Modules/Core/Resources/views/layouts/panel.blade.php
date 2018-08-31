@@ -58,7 +58,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomInvitationsController@roomsList')}}" >
+                        <a class="nav-link" href="{{action('\Modules\RoomManager\Http\Controllers\RoomInvitationsController@list')}}" >
                             {{__('Invitations')}}
                         </a>
                     </li>
