@@ -2,7 +2,9 @@
 
 namespace Tests\Unit\Core\Roller;
 
+use Core\Roller\Dices\D4Dice;
 use \Tests\Unit\Core\TestCase;
+
 /**
  * Class D4DiceTest
  *
@@ -14,8 +16,9 @@ class D4DiceTest extends TestCase
     /**
      * Test that dice roll is correct
      */
-    public function testThatRollIsCorrect() {
-        $dice = new \Core\Roller\Dices\D4Dice();
+    public function testThatRollIsCorrect()
+    {
+        $dice = new D4Dice();
 
         $result = $dice->roll();
 

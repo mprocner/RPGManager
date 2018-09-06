@@ -2,8 +2,10 @@
 
 namespace Modules\Roller\Providers;
 
+use Core\Roller\Repositories\RollRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Roller\Repositories\RollRepository;
 
 class RollerServiceProvider extends ServiceProvider
 {
@@ -35,7 +37,10 @@ class RollerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            RollRepositoryInterface::class,
+            RollRepository::class
+        );
     }
 
     /**

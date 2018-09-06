@@ -11,15 +11,50 @@ use Tests\Unit\Core\TestCase;
 class StoreRoomDataTest extends TestCase
 {
 
-    public function testThatStoreRoomDataIsProperlyCreated() {
+    private $userMock;
 
-        $userMock = $this->getMockBuilder(User::class)
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->userMock = $this->getMockBuilder(User::class)
             ->disableOriginalConstructor()
             ->getMock();
+    }
+    public function testThatStoreRoomDataIsProperlyCreated() {
 
-        $storeRoomData = new StoreRoomData('roomName', 'game', $userMock);
+
+        $storeRoomData = new StoreRoomData('roomName', 'game', $this->userMock);
 
         $this->assertInstanceOf(StoreRoomData::class, $storeRoomData);
+    }
+
+    public function testThatGameIsProperlyReturned()
+    {
+        $storeRoomData = new StoreRoomData('roomName', 'game', $this->userMock);
+
+        $game = $storeRoomData->getGame();
+
+        $this->assertEquals('game', $game);
+    }
+
+    public function testThatRoomNameIsProperlyReturned()
+    {
+        $storeRoomData = new StoreRoomData('roomName', 'game', $this->userMock);
+
+        $roomName= $storeRoomData->getRoomName();
+
+        $this->assertEquals('roomName', $roomName);
+    }
+
+    public function testThatOwnerIsProperlyReturned()
+    {
+        $storeRoomData = new StoreRoomData('roomName', 'game', $this->userMock);
+
+        $owner = $storeRoomData->getOwner();
+
+        $this->assertInstanceOf(User::class, $owner);
+        $this->assertEquals($this->userMock, $owner);
     }
 
 }

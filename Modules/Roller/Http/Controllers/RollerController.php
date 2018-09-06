@@ -51,7 +51,7 @@ class RollerController extends Controller
     {
         $sides = $request->input('dice');
         $rollDice = new RollDiceUseCase(new CustomDice($sides));
-        $result =$rollDice->execute();
+        $result = $rollDice->execute();
 
         $data['result'] = $result;
         $data['message'] = 'Rolling D'.$sides;
