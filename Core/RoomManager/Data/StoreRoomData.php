@@ -2,7 +2,6 @@
 
 namespace Core\RoomManager\Data;
 
-
 use Core\Common\Contracts\DataInterface;
 use Core\Common\Entities\User;
 
@@ -26,7 +25,7 @@ class StoreRoomData implements DataInterface
     /**
      * @var User
      */
-    private $owner;
+    private $user;
 
     /**
      * StoreRoomData constructor.
@@ -39,7 +38,6 @@ class StoreRoomData implements DataInterface
         $this->roomName = $roomName;
         $this->game = $game;
         $this->user = $user;
-
     }
 
     /**

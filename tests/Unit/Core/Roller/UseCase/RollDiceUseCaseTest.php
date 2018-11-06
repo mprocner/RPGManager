@@ -6,6 +6,10 @@ use Core\Roller\Dices\CustomDice;
 use Tests\TestCase;
 use Core\Roller\UseCase\RollDiceUseCase;
 
+/**
+ * Class RollDiceUseCaseTest
+ * @package tests\Unit\Core\Roller\UseCase
+ */
 class RollDiceUseCaseTest extends TestCase
 {
 
@@ -15,7 +19,7 @@ class RollDiceUseCaseTest extends TestCase
         parent::setUp();
     }
 
-    public function testThatExecuteReturns1WherD1DiceGiven()
+    public function testThatExecuteReturns1WhereD1DiceGiven()
     {
         $dice = $this->getMockBuilder(CustomDice::class)
             ->setConstructorArgs([1])
