@@ -4,6 +4,8 @@ namespace Modules\RoomManager\Http\Controllers;
 
 use Core\Common\Entities\User;
 use Core\RoomManager\Data\StoreRoomData;
+use Core\RoomManager\Factories\GameFactory;
+use Core\RoomManager\Factories\RoomFactory;
 use Core\RoomManager\Repositories\RoomRepositoryInterface;
 use Core\RoomManager\UseCase\CreateRoom;
 use Illuminate\Contracts\Auth\Guard;
@@ -28,14 +30,32 @@ class RoomManagerController extends Controller
     private $roomRepository;
 
     /**
+     * @var RoomFactory
+     */
+    private $roomFactory;
+
+    /**
+     * @var GameFactory
+     */
+    private $gameFactory;
+
+    /**
      * RoomManagerController constructor.
      * @param Guard $guard
      * @param RoomRepositoryInterface $roomRepository
+     * @param RoomFactory $roomFactory
+     * @param GameFactory $gameFactory
      */
-    public function __construct(Guard $guard, RoomRepositoryInterface $roomRepository)
-    {
+    public function __construct(
+        Guard $guard,
+        RoomRepositoryInterface $roomRepository,
+        RoomFactory $roomFactory,
+        GameFactory $gameFactory
+    ) {
         $this->guard = $guard;
         $this->roomRepository = $roomRepository;
+        $this->roomFactory = $roomFactory;
+        $this->gameFactory = $gameFactory;
     }
 
     /**
@@ -60,7 +80,7 @@ class RoomManagerController extends Controller
 
         $storeRoomData = new StoreRoomData($formData['roomName'], $formData['game'], $owner);
 
-        $createRoom = new CreateRoom($storeRoomData, $this->roomRepository);
+        $createRoom = new CreateRoom($storeRoomData, $this->roomRepository, $this->roomFactory, $this->gameFactory);
         $createRoom->execute();
 
         return response()->redirectToRoute('room.list');
@@ -75,16 +95,14 @@ class RoomManagerController extends Controller
         $user = $this->guard->user()->getEntity();
         $rooms = $this->roomRepository->findUserRooms($user);
         return view('roommanager::list', ['rooms' => $rooms]);
-
     }
 
     /**
      * Enter room
-     * @param Room $room
+     * @param RoomModel $room
      */
     public function enter(RoomModel $room)
     {
         return view('core::application');
-
     }
 }

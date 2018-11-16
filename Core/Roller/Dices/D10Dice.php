@@ -1,9 +1,10 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Core\Roller\Dices;
 
 use Core\Roller\Dice;
+
 /**
  * Class D6Dice
  *

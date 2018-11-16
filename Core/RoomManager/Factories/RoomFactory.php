@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace Core\RoomManager\Factories;
 
-use Core\Common\Contracts\FactoryInterface;
 use Core\Common\Entities\User;
 use Core\GameManager\Entities\Game;
 use Core\RoomManager\Entities\Room;
@@ -11,7 +11,7 @@ use Core\RoomManager\Entities\Room;
  * Class RoomFactory
  * @package Core\RoomManager\Factories
  */
-class RoomFactory implements FactoryInterface
+class RoomFactory
 {
 
     /**
@@ -30,29 +30,16 @@ class RoomFactory implements FactoryInterface
     private $owner;
 
     /**
-     * RoomFactory constructor.
      * @param string $name
      * @param Game $game
      * @param User $owner
+     * @return Room
      */
-    public function __construct(string $name, Game $game, User $owner)
-    {
-        $this->name = $name;
-        $this->game = $game;
-        $this->owner = $owner;
-
-    }
-
-
-    /**
-     *
-     */
-    public function create()
+    public function create(string $name, Game $game, User $owner)
     {
 
-        $room = new Room($this->name, $this->game, $this->owner);
+        $room = new Room($name, $game, $owner);
 
         return $room;
-
     }
 }

@@ -10,9 +10,17 @@ use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Entities\UserModel;
 use Modules\RoomManager\Entities\RoomModel;
 
+/**
+ * Class RoomRepository
+ * @package Modules\RoomManager\Repositories
+ */
 class RoomRepository implements RoomRepositoryInterface
 {
 
+    /**
+     * @param Room $room
+     * @return RoomModel
+     */
     public function createRoom(Room $room) : RoomModel
     {
         $owner = UserModel::where('email', '=', $room->getOwner()->getEmail())->first();
@@ -25,6 +33,10 @@ class RoomRepository implements RoomRepositoryInterface
         return $roomModel;
     }
 
+    /**
+     * @param User $user
+     * @return Collection
+     */
     public function findUserRooms(User $user) : Collection
     {
 
@@ -33,6 +45,10 @@ class RoomRepository implements RoomRepositoryInterface
         return $rooms;
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function getRoomsCreatedByUser(User $user)
     {
         $rooms = UserModel::find($user->getId())->rooms()->wherePivot('role', RoomRoleEnum::OWNER)->get();

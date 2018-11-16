@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Core\GameManager\Entities;
 
@@ -22,7 +23,6 @@ class Game
     {
 
         $this->name = $name;
-
     }
 
     /**

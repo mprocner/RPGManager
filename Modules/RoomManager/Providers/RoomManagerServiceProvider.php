@@ -43,6 +43,8 @@ class RoomManagerServiceProvider extends ServiceProvider
             RoomRepository::class
         );
 
+
+
     }
 
     /**
