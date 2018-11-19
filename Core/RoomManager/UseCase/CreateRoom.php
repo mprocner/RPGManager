@@ -34,15 +34,6 @@ class CreateRoom implements UseCaseInterface
     private $data;
 
     /**
-     * @var RoomFactory
-     */
-    private $roomFactory;
-    /**
-     * @var GameFactory
-     */
-    private $gameFactory;
-
-    /**
      * @var Room
      */
     private $room;
@@ -51,22 +42,16 @@ class CreateRoom implements UseCaseInterface
      * CreateRoom constructor.
      * @param StoreRoomData $data
      * @param RoomRepositoryInterface $roomRepository
-     * @param RoomFactory $roomFactory
-     * @param GameFactory $gameFactory
      */
     public function __construct(
         StoreRoomData $data,
-        RoomRepositoryInterface $roomRepository,
-        RoomFactory $roomFactory,
-        GameFactory $gameFactory
+        RoomRepositoryInterface $roomRepository
     ) {
         $this->data = $data;
         $this->roomRepository = $roomRepository;
-        $this->roomFactory = $roomFactory;
-        $this->gameFactory = $gameFactory;
 
-        $this->game = $this->gameFactory->create($this->data->getGame());
-        $this->room = $this->roomFactory->create($this->data->getRoomName(), $this->game, $this->data->getOwner());
+        $this->game = GameFactory::create($this->data->getGame());
+        $this->room = RoomFactory::create($this->data->getRoomName(), $this->game, $this->data->getOwner());
     }
 
     /**

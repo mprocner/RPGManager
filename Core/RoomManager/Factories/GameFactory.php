@@ -16,7 +16,7 @@ class GameFactory
      * @param string $name
      * @return Game
      */
-    public function create(string $name)
+    public static function create(string $name)
     {
         return new Game($name);
     }
