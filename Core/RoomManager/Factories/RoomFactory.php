@@ -35,7 +35,7 @@ class RoomFactory
      * @param User $owner
      * @return Room
      */
-    public function create(string $name, Game $game, User $owner)
+    public static function create(string $name, Game $game, User $owner)
     {
 
         $room = new Room($name, $game, $owner);
