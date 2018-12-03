@@ -33,12 +33,20 @@ class RoomFactory
      * @param string $name
      * @param Game $game
      * @param User $owner
+     */
+    public function __construct(string $name, Game $game, User $owner)
+    {
+        $this->name = $name;
+        $this->game = $game;
+        $this->owner = $owner;
+    }
+
+    /**
      * @return Room
      */
-    public static function create(string $name, Game $game, User $owner)
+    public function create(): Room
     {
-
-        $room = new Room($name, $game, $owner);
+        $room = new Room($this->name, $this->game, $this->owner);
 
         return $room;
     }

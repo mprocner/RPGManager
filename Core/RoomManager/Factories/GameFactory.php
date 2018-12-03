@@ -13,11 +13,24 @@ class GameFactory
 {
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * GameFactory constructor.
      * @param string $name
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return Game
      */
-    public static function create(string $name)
+    public function create(): Game
     {
-        return new Game($name);
+        return new Game($this->name);
     }
 }

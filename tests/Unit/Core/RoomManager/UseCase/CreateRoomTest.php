@@ -1,11 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace tests\Unit\Core\RoomManager\UseCase;
 
 use Core\GameManager\Entities\Game;
+use Core\RoomManager\Data\StoreRoomData;
 use Core\RoomManager\Entities\Room;
 use Core\RoomManager\Factories\GameFactory;
 use Core\RoomManager\Factories\RoomFactory;
+use Core\RoomManager\Repositories\RoomRepositoryInterface;
 use Tests\TestCase;
 use Core\RoomManager\UseCase\CreateRoom;
 
@@ -29,31 +32,17 @@ class CreateRoomTest extends TestCase
      */
     public function testThatCreateRoomUseCaseExecuteProperly()
     {
-        $gameMock = $this->getMockBuilder(Game::class)
+        $storeRoomDataMock = $this->getMockBuilder(StoreRoomData::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $gameFactoryMock = $this->getMockBuilder(GameFactory::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $gameFactoryMock->expects($this->once())
-            ->method('create')
-            ->willReturn($gameMock);
-
-        $roomMock = $this->getMockBuilder(Room::class)
+        $roomRepositoryMock = $this->getMockBuilder(RoomRepositoryInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $roomFactoryMock = $this->getMockBuilder(RoomFactory::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $roomFactoryMock->expects($this->once())
-            ->method('create')
-            ->willReturn($gameMock);
 
 
-//        $createRoom = new CreateRoom()
+        $createRoom = new CreateRoom($storeRoomDataMock, $roomRepositoryMock);
+        $createRoom->execute();
     }
 
 }
