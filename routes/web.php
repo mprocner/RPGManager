@@ -15,4 +15,6 @@
 //    return view('welcome');
 //});
 
+Route::get('test', 'TestController@test');
+Route::get('push', 'TestController@push');
 
